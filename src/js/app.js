@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client'
 
-window.socketIOURI = window.location.protocol+"//"+window.location.hostname+":3000";
+window.socketIOURI = window.location.protocol+"//"+window.location.hostname+"";
 Vue.use(VueRouter);
 
 window.axios = require('axios');

@@ -86,7 +86,6 @@
         this.$socket.client.emit('rollDie', {diceCount: this.diceCount, numberOfSides: numberOfSides});
       },
       clearRolls() {
-        alert('cleared')
         this.$set(this, 'rollResults', []);
       },
       getResultsColor(i) {

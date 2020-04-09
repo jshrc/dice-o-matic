@@ -78,7 +78,7 @@ webApp.listen(80, function(){
   console.log(`webApp listening on port 80`);
 });
 
-app.get("/*", (request, response, next) => {
+webApp.get("/*", (request, response, next) => {
   let file = request.params[0] ? request.params[0] : 'index.html';
   if (fs.existsSync('./dist/www/'+file)) {
     return response.sendFile(file, {root: './dist/www'})

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>InstaDice!</h1>
+    <h1>Dice-O-Matic!</h1>
     <div style="display: none;">
       <span class="fas fa-dice-one"></span>
       <span class="fas fa-dice-two"></span>

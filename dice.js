@@ -1,14 +1,12 @@
+'use strict';
+
 const express = require('express');
-const util = require('util');
 const socketIO = require('socket.io');
-const BodyParser = require("body-parser");
-const serveStatic = require('serve-static');
-const path = require('path');
 const fs = require('fs');
 
 const PORT = process.env.PORT || 3000;
 
-server = express()
+const server = express()
   .use((request, response) => {
     let file = request.originalUrl;
     if (fs.existsSync('./dist/www'+file)) {
@@ -20,10 +18,10 @@ server = express()
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const io = socketIO(server);
-
 let Players = {},
   clientCount = 0;
+
+const io = socketIO(server);
 
 io.on('connection', function(socket){
 

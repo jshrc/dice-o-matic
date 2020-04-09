@@ -19,6 +19,7 @@ const server = express()
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 let Players = {},
+  colors = ['red', 'periwinkle', 'orange', 'purple', 'muave'],
   clientCount = 0;
 
 const io = socketIO(server);
@@ -36,15 +37,24 @@ io.on('connection', function(socket){
   });
 
   socket.on('playerJoin', function(params) {
-    let playerName = params.name;
-    if (playerName == undefined ||playerName == '') {
+    let playerName = params.name,
+        playerColor = params.color;
+
+        console.log("!!!",playerName);
+console.log("!!!",playerColor);
+
+    if (playerName == undefined || playerName == '') {
       playerName = "No Name";
+    }
+    if (playerColor == undefined || playerColor == '' || !colors.includes(playerColor)) {
+      playerColor = (rollDie(colors.length).result-1);
     }
     Players[socket.id] = {
       name: playerName,
+      color: playerColor,
     };
     io.emit('players', Players);
-    socket.emit('joinSuccess', {playerName: playerName, socket_id: socket.id})
+    socket.emit('joinSuccess', {name: playerName, socket_id: socket.id, color: playerColor})
   });
 
   socket.on('rollDie', function(params) {

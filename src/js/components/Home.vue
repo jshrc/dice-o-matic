@@ -9,7 +9,14 @@
           placeholder="Your Name"
           v-model="session_name" />
       </div>
-      <button v-on:click="joinSession()">Enter</button>
+      <div class="form_field">
+        <label for="color">Pick a Color</label>
+        <select name="color" id="color" v-model="session_color">
+          <option value="">Random!</option>
+          <option v-for="(color) in colors" :value="color">{{color}}</option>
+        </select>
+      </div>
+      <button v-on:click.stop.prevent="joinSession()">Enter</button>
       <div v-if="error" class="error">
         <i class="fas fa-exclamation-triangle"></i>
         <span v-html="error"></span>
@@ -24,23 +31,14 @@
     name: "Home",
     data() {
       return {
-        session_code: '',
+        session_color: '',
         session_name: '',
         error: '',
+        colors: window.colors,
       }
     },
     sockets: {
-      joinSuccess: function(session) {
-        this.$emit('joinedGame', session);
-        if (document.cookie.length) {
-          let c = document.cookie.split("; ");
-          for (let i in c)
-            document.cookie =/^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        }
-        document.cookie = "socket_id="+session.socket_id;
-        document.cookie = "player_name="+session.playerName;
-        this.$router.push({name: "Play"});
-      },
+
       joinError: function(message) {
         this.error = message;
       },
@@ -52,21 +50,23 @@
 
     },
     created() {
-      this.$emit('joinedGame', false);
+
     },
     methods: {
       joinSession() {
+        console.log('joinSession?', Math.random());
         if (this.session_name !== '') {
           this.error = '';
           let join = {
             name: this.session_name,
+            color: this.session_color,
           };
           this.$socket.client.emit('playerJoin', join);
         }
         else {
           this.error = "You must provide a session code and&nbsp;name.";
         }
-
+        return false;
       },
     },
   }

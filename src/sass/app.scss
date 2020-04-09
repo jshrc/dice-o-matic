@@ -30,17 +30,20 @@ h1,h2{
   font-family: montserratbold, sans-serif;
 }
 
-button {
+button, .button {
   background: $teal;
   border: 1px solid darken($teal, 10%);
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
+  display: inline-block;
   font-size: 1.25em;
   margin: .25rem 0;
   padding: 1rem .5em;
   text-align: center;
   outline: none;
+  overflow: hidden;
+
   &:hover{
     background: $red;
     border: 1px solid darken($red, 10%);
@@ -51,6 +54,27 @@ button {
     transform: scale(.9);
     transition: transform .25s ease;
   }
+
+  &.selected {
+    background: $periwinkle;
+    border: 1px solid darken($periwinkle, 10%);
+  }
+
+  &.unselected {
+    background: #999;
+    border: 1px solid darken(#999, 10%);
+  }
+
+  &.red {
+    background: $red;
+    border: 1px solid darken($red, 10%);
+  }
+  input[type="radio"], input[type="checkbox"] {
+    height: 1px;
+    left: -2rem;
+    position: absolute;
+    width: 1px;
+  }
 }
 
 select {
@@ -58,7 +82,7 @@ select {
   -moz-appearance: none;
   -webkit-appearance: none;
   background: #fff;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%23ff9d84" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%2361cccc" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
   border: 1px solid $teal;
   border-bottom: 1px solid $teal;
   background-position: right .7em top 50%;
@@ -66,8 +90,9 @@ select {
   background-size: .65em auto;
   border-radius: 4px;
   cursor: pointer;
+  color: darken($teal, 20%);
   font-size: 1.25em;
-  margin: .25rem auto;
+  margin: .25rem 0;
   padding: 1rem 3rem 1rem 2.5rem;
   position: relative;
 }
@@ -79,6 +104,11 @@ select {
 #app {
   max-width: 768px;
   padding: .5rem;
+  header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 #dice {
@@ -89,6 +119,11 @@ select {
     button {
       width: calc(100% / 3.1);
     }
+  }
+  &_controls_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 }
 
@@ -108,19 +143,31 @@ select {
     background: $periwinkle;
     border: 1px solid darken($periwinkle, 10%);
     color: #fff;
-    text-shadow: 0 0 2px darken($periwinkle, 15%);
+    @include outlineText($periwinkle);
   }
   &.red{
     background: $red;
     border: 1px solid darken($red, 10%);
     color: #fff;
-    text-shadow: 0 0 2px darken($red, 15%);
+    @include outlineText($red);
   }
   &.orange{
     background: $orange;
     border: 1px solid darken($orange, 13%);
     color: #fff;
-    text-shadow: 0 0 2px darken($orange, 15%);
+    @include outlineText($orange);
+  }
+  &.muave{
+    background: $muave;
+    border: 1px solid darken($muave, 13%);
+    color: #fff;
+    @include outlineText($muave);
+  }
+  &.purple{
+    background: $purple;
+    border: 1px solid darken($purple, 13%);
+    color: #fff;
+    @include outlineText($purple);
   }
 
   &_rolls {

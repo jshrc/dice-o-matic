@@ -4587,32 +4587,48 @@ h1, h2, h3, h4 {
 h1, h2 {
   font-family: montserratbold, sans-serif; }
 
-button {
+button, .button {
   background: #61cccc;
   border: 1px solid #3dbdbd;
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
+  display: inline-block;
   font-size: 1.25em;
   margin: .25rem 0;
   padding: 1rem .5em;
   text-align: center;
-  outline: none; }
-  button:hover {
+  outline: none;
+  overflow: hidden; }
+  button:hover, .button:hover {
     background: #FF7979;
     border: 1px solid #ff4646; }
-  button:active {
+  button:active, .button:active {
     background: #718FD5;
     border: 1px solid #4a70c9;
     transform: scale(0.9);
     transition: transform .25s ease; }
+  button.selected, .button.selected {
+    background: #718FD5;
+    border: 1px solid #4a70c9; }
+  button.unselected, .button.unselected {
+    background: #999;
+    border: 1px solid gray; }
+  button.red, .button.red {
+    background: #FF7979;
+    border: 1px solid #ff4646; }
+  button input[type="radio"], button input[type="checkbox"], .button input[type="radio"], .button input[type="checkbox"] {
+    height: 1px;
+    left: -2rem;
+    position: absolute;
+    width: 1px; }
 
 select {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
   background: #fff;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%23ff9d84" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%2361cccc" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
   border: 1px solid #61cccc;
   border-bottom: 1px solid #61cccc;
   background-position: right .7em top 50%;
@@ -4620,8 +4636,9 @@ select {
   background-size: .65em auto;
   border-radius: 4px;
   cursor: pointer;
+  color: #319696;
   font-size: 1.25em;
-  margin: .25rem auto;
+  margin: .25rem 0;
   padding: 1rem 3rem 1rem 2.5rem;
   position: relative; }
 
@@ -4632,6 +4649,10 @@ select {
 #app {
   max-width: 768px;
   padding: .5rem; }
+  #app header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between; }
 
 #dice_wrapper {
   display: flex;
@@ -4639,6 +4660,11 @@ select {
   justify-content: space-between; }
   #dice_wrapper button {
     width: calc(100% / 3.1); }
+
+#dice_controls_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
 
 .roll_results {
   align-items: center;
@@ -4653,17 +4679,27 @@ select {
     background: #718FD5;
     border: 1px solid #4a70c9;
     color: #fff;
-    text-shadow: 0 0 2px #3962c1; }
+    text-shadow: -1px -1px 0 #445e9c, 1px -1px 0 #445e9c, -1px 1px 0 #445e9c, 1px 1px 0 #445e9c; }
   .roll_results.red {
     background: #FF7979;
     border: 1px solid #ff4646;
     color: #fff;
-    text-shadow: 0 0 2px #ff2d2d; }
+    text-shadow: -1px -1px 0 #ed2525, 1px -1px 0 #ed2525, -1px 1px 0 #ed2525, 1px 1px 0 #ed2525; }
   .roll_results.orange {
     background: #FFB679;
     border: 1px solid #ff9237;
     color: #fff;
-    text-shadow: 0 0 2px #ff8c2d; }
+    text-shadow: -1px -1px 0 #ed8025, 1px -1px 0 #ed8025, -1px 1px 0 #ed8025, 1px 1px 0 #ed8025; }
+  .roll_results.muave {
+    background: #CD619E;
+    border: 1px solid #b3397e;
+    color: #fff;
+    text-shadow: -1px -1px 0 #893f69, 1px -1px 0 #893f69, -1px 1px 0 #893f69, 1px 1px 0 #893f69; }
+  .roll_results.purple {
+    background: #9b74da;
+    border: 1px solid #7540cc;
+    color: #fff;
+    text-shadow: -1px -1px 0 #6842a6, 1px -1px 0 #6842a6, -1px 1px 0 #6842a6, 1px 1px 0 #6842a6; }
   .roll_results_rolls {
     display: inline-block; }
     .roll_results_rolls > span {

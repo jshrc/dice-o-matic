@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <h1>Dice-O-Matic!</h1>
+    <header>
+      <h1><i class="fas fa-dice"></i> Dice-O-Matic!</h1>
+      <div v-if="isJoined">
+        <i class="fas fa-user"></i>
+        {{player.name}}
+      </div>
+    </header>
     <div style="display: none;">
       <span class="fas fa-dice-one"></span>
       <span class="fas fa-dice-two"></span>
@@ -9,7 +15,8 @@
       <span class="fas fa-dice-one"></span>
     </div>
     <div v-if="isConnected" id="app_content">
-      <router-view v-on:joinedGame="joinedGame"
+      <router-view
+        v-bind:player="player"
         v-bind:activeSession="activeSession"></router-view>
     </div>
     <connecting v-else-if="!connectionError"></connecting>
@@ -36,6 +43,8 @@
         activeSession: false,
         connectionError: false,
         rollResult: null,
+        player: {},
+        players: [],
       }
     },
     computed: {
@@ -47,7 +56,10 @@
       },
       isConnected() {
         return this.ioConnected;
-      }
+      },
+      isJoined() {
+        return this.player.name != undefined;
+      },
     },
     sockets: {
       connect() {
@@ -62,22 +74,62 @@
       error() {
 
       },
+      players(players) {
+        this.players = players;
+      },
+      joinSuccess: function(session) {
+        if (document.cookie.length) {
+          let c = document.cookie.split("; ");
+          for (let i in c)
+            document.cookie =/^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+        document.cookie = "socket_id="+session.socket_id;
+        document.cookie = "player_name="+session.name;
+        document.cookie = "player_color="+session.color;
+        this.player = session;
+
+        if (this.$route.name !== "Play") {
+          this.$router.push({name: "Play", params: {player_name: session.name, player_color: session.color}});
+        }
+      },
     },
     watch: {
       '$route' (to, from) {
         window.scrollTo(0,0);
-        if (this.$route.meta.needsSocketIO === true && !this.ioConnected) {
-          this.connectSocketIO();
-        }
+
       }
     },
     created() {
+
+      if (this.$route.name == 'Play' && this.player.name == undefined) {
+        let player_name,
+          player_color;
+
+        let player_name_regex = /player_name=([a-zA-Z0-9 ]*)/ig,
+          player_name_match = player_name_regex.exec(document.cookie);
+        player_name = player_name_match !== null ? player_name_match[1] : null;
+
+        let player_color_regex = /player_color=([a-zA-Z0-9 ]*)/ig,
+          player_color_match = player_color_regex.exec(document.cookie);
+        player_color = player_color_match !== null ? player_color_match[1] : 'red';
+        console.log("player_name", player_name)
+        console.log("player_color", player_color)
+
+        if (player_name !== null) {
+          let join = {
+            name: player_name,
+            color: player_color,
+          };
+          this.$socket.client.emit('playerJoin', join);
+        }
+        else {
+          window.location = "/";
+        }
+      }
+
     },
     mounted() {
-      let socket_name_regex = /player_name=([a-zA-Z0-9\-_ ]*)/ig,
-            socket_player_name_match = socket_name_regex.exec(document.cookie),
-            player_name = socket_player_name_match !== null ? socket_player_name_match[1] : null;
-            console.log(player_name,'!!!!');
+
     },
     methods: {
       joinedGame(session) {

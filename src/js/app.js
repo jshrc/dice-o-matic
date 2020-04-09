@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import VueSocketIOExt from 'vue-socket.io-extended';
 import io from 'socket.io-client'
 
-window.socketIOURI = window.location.protocol+"//"+window.location.hostname+"";
+window.socketIOURI = window.location.protocol+"//"+window.location.hostname+":"+location.port;
 Vue.use(VueRouter);
 
 window.axios = require('axios');
@@ -21,6 +21,7 @@ const router = new VueRouter({
 
 import { EventBus } from './eventbus.js';
 window.EventBus = EventBus;
+window.colors = ['red', 'periwinkle', 'orange', 'purple', 'muave'];
 
 const app = new Vue({
   el: "#app",

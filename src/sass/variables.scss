@@ -1,5 +1,17 @@
 $teal: #61cccc;
 $yellow: #FFD279;
+$blue: #79e6ff;
 $orange: #FFB679;
+$green: #6DE56D;
 $red: #FF7979;
+$purple: #9b74da;
+$muave: #CD619E;
 $periwinkle: #718FD5;
+
+@mixin outlineText($color) {
+  text-shadow:
+   -1px -1px 0 desaturate(darken($color, 20%), 15%),
+    1px -1px 0 desaturate(darken($color, 20%), 15%),
+    -1px 1px 0 desaturate(darken($color, 20%), 15%),
+     1px 1px 0 desaturate(darken($color, 20%), 15%);
+}

@@ -1,0 +1,156 @@
+@charset "UTF-8";
+@import "normalize";
+@import "typefaces";
+@import "variables";
+@import "fontawesome";
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body, html{
+  margin: 0;
+  padding: 0;
+  font-family: montserratregular, sans-serif;
+  font-size: 16px;
+}
+
+h1,h2,h3,h4{
+  font-family: montserratsemibold, sans-serif;
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-top: 0;
+}
+h1,h2{
+  font-family: montserratbold, sans-serif;
+}
+
+button {
+  background: $teal;
+  border: 1px solid darken($teal, 10%);
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.25em;
+  margin: .25rem 0;
+  padding: 1rem .5em;
+  text-align: center;
+  outline: none;
+  &:hover{
+    background: $red;
+    border: 1px solid darken($red, 10%);
+  }
+  &:active{
+    background: $periwinkle;
+    border: 1px solid darken($periwinkle, 10%);
+    transform: scale(.9);
+    transition: transform .25s ease;
+  }
+}
+
+select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%23ff9d84" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
+  border: 1px solid $teal;
+  border-bottom: 1px solid $teal;
+  background-position: right .7em top 50%;
+  background-repeat: no-repeat;
+  background-size: .65em auto;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.25em;
+  margin: .25rem auto;
+  padding: 1rem 3rem 1rem 2.5rem;
+  position: relative;
+}
+
+#app_wrapper {
+  display: flex;
+  justify-content: center;
+}
+#app {
+  max-width: 768px;
+  padding: .5rem;
+}
+
+#dice {
+  &_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    button {
+      width: calc(100% / 3.1);
+    }
+  }
+}
+
+
+.roll_results {
+  align-items: center;
+  border: 1px solid $teal;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  & + .roll_results {
+    margin-top: .5rem;
+  }
+
+  &.periwinkle{
+    background: $periwinkle;
+    border: 1px solid darken($periwinkle, 10%);
+    color: #fff;
+    text-shadow: 0 0 2px darken($periwinkle, 15%);
+  }
+  &.red{
+    background: $red;
+    border: 1px solid darken($red, 10%);
+    color: #fff;
+    text-shadow: 0 0 2px darken($red, 15%);
+  }
+  &.orange{
+    background: $orange;
+    border: 1px solid darken($orange, 13%);
+    color: #fff;
+    text-shadow: 0 0 2px darken($orange, 15%);
+  }
+
+  &_rolls {
+    display: inline-block;
+    & > span {
+      display: inline-block;
+      &:after {
+        content: ', ';
+        display: inline-block;
+      }
+      &:last-child {
+        &:after {
+          content: '';
+        }
+      }
+    }
+  }
+  &_rolled {
+    display: inline-block;
+  }
+  &_roller {
+    font-family: montserratbold;
+    font-size: 1.25rem;
+  }
+  &_sum {
+    font-family: montserratbold;
+    font-size: 2rem;
+  }
+}
+
+#game_board {
+  margin-top: .5rem;
+}

@@ -1,7 +1,6 @@
 <template>
   <div id="home">
     <form id="join" @submit.prevent="joinSession">
-      <h1>InstaDice!</h1>
       <div class="form_field">
         <label for="name">Your Name</label>
         <input id="name"

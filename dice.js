@@ -6,9 +6,24 @@ const serveStatic = require('serve-static');
 const path = require('path');
 const fs = require('fs');
 
-let app = express();
+const PORT = process.env.PORT || 3000;
 
-io = socket(app.listen(3000, () => { console.log(`Socket.IO listening on port 3000`)}));
+const webApp = express()
+  .use('/', serveStatic(path.join(__dirname, '/dist/www')))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+webApp.get(/.*/, function (request, response) {
+  let file = request.params[0] ? request.params[0] : 'index.html';
+  if (fs.existsSync('./dist/www/'+file)) {
+    return response.sendFile(file, {root: './dist/www'});
+  }
+  else {
+    return response.sendFile('index.html', {root: './dist/www'});
+  }
+})
+
+const io = socketIO(webapp);
+
 let Players = {},
   clientCount = 0;
 
@@ -73,19 +88,3 @@ function rollDie(numberOfSides) {
   let roll = Math.floor(Math.random() * Math.floor(numberOfSides))+1;
   return {numberOfSides: numberOfSides, result: roll};
 }
-
-let webApp = express();
-
-webApp.use('/', serveStatic(path.join(__dirname, '/dist/www')));
-webApp.get(/.*/, function (request, response) {
-  let file = request.params[0] ? request.params[0] : 'index.html';
-  if (fs.existsSync('./dist/www/'+file)) {
-    return response.sendFile(file, {root: './dist/www'});
-  }
-  else {
-    return response.sendFile('index.html', {root: './dist/www'});
-  }
-})
-const port = process.env.PORT || 8080;
-webApp.listen(port);
-console.log(`webApp is listening on port: ${port}`);

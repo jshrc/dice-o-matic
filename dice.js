@@ -4,6 +4,7 @@ const socket = require('socket.io');
 const BodyParser = require("body-parser");
 const serveStatic = require('serve-static');
 const path = require('path');
+const fs = require('fs');
 
 let app = express();
 
@@ -76,7 +77,7 @@ function rollDie(numberOfSides) {
 let webApp = express();
 
 webApp.use('/', serveStatic(path.join(__dirname, '/dist/www')));
-webApp.get(/.*/, function (req, res) {
+webApp.get(/.*/, function (request, response) {
   let file = request.params[0] ? request.params[0] : 'index.html';
   if (fs.existsSync('./dist/www/'+file)) {
     return response.sendFile(file, {root: './dist/www'});

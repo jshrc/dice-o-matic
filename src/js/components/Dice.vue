@@ -19,10 +19,12 @@
         <option value="7">7 dice</option>
         <option value="8">8 dice</option>
       </select>
+      <button class="red" v-on:click="clearRolls">Clear Rolls</button>
+    </div>
+    <div id="dice_controls_wrapper">
       <label :class="'button '+(showingRolls == 'all' ? 'selected' : 'unselected')" for="showingRolls__all"><input type="radio" value="all" id="showingRolls__all" name="showingRolls" v-model="showingRolls"/>All Rolls</label>
       <label :class="'button '+(showingRolls == 'my' ? 'selected' : 'unselected')" for="showingRolls__my"><input type="radio" value="my" id="showingRolls__my" name="showingRolls" v-model="showingRolls"/>My Rolls</label>
       <label :class="'button '+(showingRolls == 'others' ? 'selected' : 'unselected')" for="showingRolls__others"><input type="radio" value="others" id="showingRolls__others" name="showingRolls" v-model="showingRolls"/>Other's Rolls</label>
-      <button class="red" v-on:click="clearRolls">Clear Rolls</button>
     </div>
     <div id="game_board">
       <div class="roll_results_wrapper">

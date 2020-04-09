@@ -1,6 +1,6 @@
 const express = require('express');
 const util = require('util');
-const socket = require('socket.io');
+const socketIO = require('socket.io');
 const BodyParser = require("body-parser");
 const serveStatic = require('serve-static');
 const path = require('path');
@@ -8,21 +8,19 @@ const fs = require('fs');
 
 const PORT = process.env.PORT || 3000;
 
-const webApp = express()
-  .use('/', serveStatic(path.join(__dirname, '/dist/www')))
+server = express()
+  .use((request, response) => {
+    let file = request.originalUrl;
+    if (fs.existsSync('./dist/www'+file)) {
+      return response.sendFile(file, {root: './dist/www'});
+    }
+    else {
+      return response.sendFile('index.html', {root: './dist/www'});
+    }
+  })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-webApp.get(/.*/, function (request, response) {
-  let file = request.params[0] ? request.params[0] : 'index.html';
-  if (fs.existsSync('./dist/www/'+file)) {
-    return response.sendFile(file, {root: './dist/www'});
-  }
-  else {
-    return response.sendFile('index.html', {root: './dist/www'});
-  }
-})
-
-const io = socketIO(webapp);
+const io = socketIO(server);
 
 let Players = {},
   clientCount = 0;

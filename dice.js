@@ -70,3 +70,20 @@ function rollDie(numberOfSides) {
   let roll = Math.floor(Math.random() * Math.floor(numberOfSides))+1;
   return {numberOfSides: numberOfSides, result: roll};
 }
+
+
+let webApp = express();
+
+webApp.listen(80, function(){
+  console.log(`webApp listening on port 80`);
+});
+
+app.get("/*", (request, response, next) => {
+  let file = request.params[0] ? request.params[0] : 'index.html';
+  if (fs.existsSync('./dist/www/'+file)) {
+    return response.sendFile(file, {root: './dist/www'})
+  }
+  else {
+    return response.sendFile('index.html', {root: './dist/www'})
+  }
+});

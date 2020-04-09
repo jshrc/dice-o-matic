@@ -1,7 +1,4 @@
 .DS_Store
-node_modules/
 dist/www/css
 dist/www/js
-.hgignore
-.hg
 .env

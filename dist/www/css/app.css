@@ -4623,6 +4623,14 @@ button, .button {
     position: absolute;
     width: 1px; }
 
+input[type=text] {
+  border: 1px solid #61cccc;
+  border-bottom: 1px solid #61cccc;
+  border-radius: 4px;
+  font-size: 1.25em;
+  margin: .25rem 0;
+  padding: 1rem; }
+
 select {
   appearance: none;
   -moz-appearance: none;
@@ -4653,6 +4661,23 @@ select {
     align-items: center;
     display: flex;
     justify-content: space-between; }
+
+#home form {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  min-height: 84vh;
+  text-align: center; }
+
+#home .form_field, #home label {
+  display: block;
+  width: 100%; }
+  #home .form_field + .form_field, #home label + .form_field {
+    margin: 1rem 0 0 0; }
+
+#home button {
+  padding-left: 2rem;
+  padding-right: 2rem; }
 
 #dice_wrapper {
   display: flex;

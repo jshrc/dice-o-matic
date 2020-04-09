@@ -76,7 +76,14 @@ button, .button {
     width: 1px;
   }
 }
-
+input[type=text] {
+  border: 1px solid $teal;
+  border-bottom: 1px solid $teal;
+  border-radius: 4px;
+  font-size: 1.25em;
+  margin: .25rem 0;
+  padding: 1rem;
+}
 select {
   appearance: none;
   -moz-appearance: none;
@@ -108,6 +115,27 @@ select {
     align-items: center;
     display: flex;
     justify-content: space-between;
+  }
+}
+
+#home {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    min-height: 84vh;
+    text-align: center;
+  }
+  .form_field, label {
+    display: block;
+    width: 100%;
+    & + .form_field {
+      margin: 1rem 0 0 0;
+    }
+  }
+  button {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 

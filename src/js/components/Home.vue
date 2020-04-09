@@ -16,7 +16,9 @@
           <option v-for="(color) in colors" :value="color">{{color}}</option>
         </select>
       </div>
-      <button v-on:click.stop.prevent="joinSession()">Enter</button>
+      <div class="form_field">
+        <button v-on:click.stop.prevent="joinSession()">Enter</button>
+      </div>
       <div v-if="error" class="error">
         <i class="fas fa-exclamation-triangle"></i>
         <span v-html="error"></span>

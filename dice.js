@@ -2,6 +2,8 @@ const express = require('express');
 const util = require('util');
 const socket = require('socket.io');
 const BodyParser = require("body-parser");
+const serveStatic = require('serve-static');
+const path = require('path');
 
 let app = express();
 
@@ -70,3 +72,19 @@ function rollDie(numberOfSides) {
   let roll = Math.floor(Math.random() * Math.floor(numberOfSides))+1;
   return {numberOfSides: numberOfSides, result: roll};
 }
+
+let webApp = express();
+
+webApp.use('/', serveStatic(path.join(__dirname, '/dist/www')));
+webApp.get(/.*/, function (req, res) {
+  let file = request.params[0] ? request.params[0] : 'index.html';
+  if (fs.existsSync('./dist/www/'+file)) {
+    return response.sendFile(file, {root: './dist/www'});
+  }
+  else {
+    return response.sendFile('index.html', {root: './dist/www'});
+  }
+})
+const port = process.env.PORT || 8080;
+webApp.listen(port);
+console.log(`webApp is listening on port: ${port}`);
